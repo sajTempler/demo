@@ -57,6 +57,7 @@ export class AppComponent implements OnInit {
     this.web3service.readAll()
       .then(res => {
         console.log('read vals', res);
+        this.items.next(res);
       });
   }
 }

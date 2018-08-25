@@ -8,6 +8,8 @@ import {AddressPipe} from './address.pipe';
 const PROVIDER_URL = 'https://ropsten.infura.io/metamask/';
 declare let web3;
 
+const GAS_LIMIT = 3000000;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -48,7 +50,10 @@ export class Web3Service {
   public setValue(_name: string, _state: number): Promise<any> {
     console.log('setValue', this.address.getValue());
     return this.contractInstance.methods.saveUserState(_name, _state)
-      .call({from: this.address.getValue()});
+      .send({
+        gas: GAS_LIMIT,
+        from: this.address.getValue()
+      });
   }
 
   public readAll(): Promise<any> {
